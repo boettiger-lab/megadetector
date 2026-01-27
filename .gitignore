@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.so
+*.o
+__pycache__
+/src
+/man
+/docs

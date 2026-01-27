@@ -1,0 +1,4 @@
+export(install_megadetector)
+export(load_model)
+export(detect_image)
+import(reticulate)
