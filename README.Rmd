@@ -1,33 +1,40 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # megadetector
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/boettiger-lab/megadetector-template/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/boettiger-lab/megadetector-template/actions/workflows/check-standard.yaml)
 <!-- badges: end -->
 
-The `megadetector` package provides an R wrapper for the
-[MegaDetector](https://github.com/agentmorris/MegaDetector) model,
-allowing users to detect animals, people, and vehicles in camera trap
-images using Python’s MegaDetector v5+ from within R.
+The `megadetector` package provides an R wrapper for the [MegaDetector](https://github.com/agentmorris/MegaDetector) model, allowing users to detect animals, people, and vehicles in camera trap images using Python's MegaDetector v5+ from within R.
 
 ## Installation
 
 You can install the package from GitHub:
 
-``` r
+```r
 # install.packages("remotes")
 remotes::install_github("boettiger-lab/megadetector-template")
 ```
 
 ## Setup
 
-The package requires a Python environment. It can clean-install the
-necessary `megadetector` python package for you:
+The package requires a Python environment. It can clean-install the necessary `megadetector` python package for you:
 
-``` r
+```{r setup, eval=FALSE}
 library(megadetector)
 
 # Installs megadetector python package if not present
@@ -36,7 +43,7 @@ install_megadetector()
 
 ## Usage
 
-``` r
+```r
 library(megadetector)
 
 # 1. Load the Model

@@ -9,3 +9,8 @@ LazyData: true
 Imports: 
     reticulate,
     cli
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
