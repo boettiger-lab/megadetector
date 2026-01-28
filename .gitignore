@@ -6,5 +6,4 @@
 *.o
 __pycache__
 /src
-/man
 /docs
