@@ -1,8 +1,5 @@
 FROM ghcr.io/rocker-org/ml:latest
 
-# NB_USER corresponds to the default user in the rocker images (usually rstudio)
-ARG NB_USER=ubuntu
-
 # Install system dependencies required by OpenCV
 # libgl1 is the vendor-neutral GL runtime (provides libGL.so.1) needed by opencv-python
 # libglib2.0-0 is typically needed as well
