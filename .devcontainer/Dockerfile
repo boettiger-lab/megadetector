@@ -1,4 +1,5 @@
-FROM ghcr.io/rocker-org/ml:latest
+ARG BASE_IMAGE=ghcr.io/rocker-org/ml:latest
+FROM ${BASE_IMAGE}
 
 # Install system dependencies required by OpenCV
 # libgl1 is the vendor-neutral GL runtime (provides libGL.so.1) needed by opencv-python
