@@ -67,7 +67,7 @@ test_that("MegaDetector classifies empty images correctly", {
 
   detections <- detect_image(model, img_path)
   class_label <- get_classification(detections)
-  expect_equal(class_label, "empty")
+  expect_equal(class_label, "blank")
 
   # Empty images should have no detections or very low confidence
   expect_true(length(detections) == 0 || detections[[1]]$conf < 0.5)
@@ -88,7 +88,7 @@ test_that("MegaDetector handles all demo images like demo.R", {
     "Caltech_Vehicle.jpg",
     "Caltech_Empty.jpg"
   )
-  expected_classes <- c("animal", "vehicle", "empty")
+  expected_classes <- c("animal", "vehicle", "blank")
 
   for (i in seq_along(image_files)) {
     img_path <- system.file("img", image_files[i], package = "megadetector")
