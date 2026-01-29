@@ -19,12 +19,18 @@ RUN mamba install -y -c conda-forge \
     jsonpickle \
     python-dateutil \
     send2trash \
+    mkl \
+    pytorch \
+    torchvision \
+    libmamba \
     && mamba clean -afy
 
 # Configure reticulate to use the base conda environment
 # This prevents creating a new environment and avoids duplicate torch installations
 ENV RETICULATE_PYTHON=/opt/conda/bin/python
 ENV RETICULATE_PYTHON_ENV=/opt/conda
+ENV LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH
+
 
 # Install remaining pip-only dependencies with --no-deps to use conda packages
 # ultralytics-yolov5 and yolov9pip must come from pip, but we prevent them from
@@ -41,6 +47,17 @@ RUN /opt/conda/bin/pip install --no-cache-dir \
 # Now install megadetector itself with --no-deps since all dependencies are satisfied
 RUN /opt/conda/bin/pip install --no-cache-dir --no-deps megadetector
 
-# Finally install the R package
-RUN R -e 'remotes::install_github("boettiger-lab/megadetector")'
+# Pre-download megadetector model
+USER root
+RUN mkdir -p /opt/megadetector/models && \
+    wget -q https://github.com/agentmorris/MegaDetector/releases/download/v5.0/md_v5a.0.0.pt -O /opt/megadetector/models/mdv5a.pt && \
+    chmod 644 /opt/megadetector/models/mdv5a.pt
 
+USER ${NB_USER}
+
+# Finally install the R package from local source (to verify changes)
+COPY . /src
+RUN R -e 'remotes::install_local("/src", upgrade="never")'
+
+# Smoketest: run megadetector from R
+RUN R -e 'source(system.file("examples/demo.R", package="megadetector"))'

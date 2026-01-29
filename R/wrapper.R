@@ -26,7 +26,17 @@ download_model <- function(model = "MDV5A", force = FALSE) {
     dir.create(cache_dir, recursive = TRUE)
   }
 
-  dest <- file.path(cache_dir, paste0(tolower(model), ".pt"))
+  model_filename <- paste0(tolower(model), ".pt")
+  dest <- file.path(cache_dir, model_filename)
+
+  # Check pre-installed system location (e.g. from Dockerfile)
+  system_path <- file.path("/opt/megadetector/models", model_filename)
+  if (file.exists(system_path)) {
+    cli::cli_alert_success(
+      "Model {.val {model}} found in system location: {.path {system_path}}"
+    )
+    return(system_path)
+  }
 
   if (file.exists(dest) && !force) {
     cli::cli_alert_success(
